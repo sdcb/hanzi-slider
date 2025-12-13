@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>汉字抽抽乐</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div id="app">
+        <h1>汉字抽抽乐</h1>
+        
+        <div class="controls">
+            <select id="structure-select">
+                <option value="">-- 请选择结构 --</option>
+                <option value="LR">左右结构</option>
+                <option value="UD">上下结构</option>
+            </select>
+            
+            <select id="set-select" disabled>
+                <option value="">-- 请先选择结构 --</option>
+            </select>
+
+            <button id="random-btn">🎲 随机选择</button>
+        </div>
+
+        <div id="game-container" class="game-container" style="display: none;">
+            
+            <!-- 抽抽乐视窗 -->
+            <div id="viewport-frame" class="viewport-frame">
+                <div class="mask-overlay"></div>
+                <!-- 内容将通过JS注入 -->
+            </div>
+
+            <!-- 结果展示 -->
+            <div class="result-area">
+                <div class="result-title">组合结果</div>
+                <div id="result-content" class="result-content">
+                    <!-- 动态生成 -->
+                    <span>请拖动滑块组成汉字</span>
+                </div>
+            </div>
+
+        </div>
+        
+        <div id="welcome-msg">
+            <p>请在上方选择一个偏旁开始游戏。</p>
+        </div>
+    </div>
+
+    <!-- 引用数据文件 -->
+    <script src="js/data.js"></script>
+    <!-- 引用游戏逻辑 -->
+    <script src="js/game.js"></script>
+</body>
+</html>

@@ -1,0 +1,311 @@
+:root {
+    --primary-color: #ff9a9e;
+    --secondary-color: #fad0c4;
+    --border-color: #333;
+    --text-color: #333;
+    --bg-color: #fdfbf7;
+    --card-bg: #fff;
+    --font-family: "KaiTi", "楷体", "STKaiti", serif;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--bg-color);
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    user-select: none;
+}
+
+h1 {
+    color: var(--text-color);
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 0px var(--secondary-color);
+}
+
+.controls {
+    margin-bottom: 30px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+select {
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    background-color: var(--card-bg);
+    font-family: inherit;
+    cursor: pointer;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    font-family: inherit;
+    cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+button:hover {
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+}
+
+/* 游戏主区域 */
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+/* 抽抽乐视窗外框 */
+.viewport-frame {
+    position: relative;
+    border: 8px solid var(--border-color);
+    border-radius: 15px;
+    background-color: var(--card-bg);
+    box-shadow: 10px 10px 0px rgba(0,0,0,0.1);
+    overflow: hidden;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 蒙版装饰 - 模拟卡纸的质感 */
+.mask-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
+    z-index: 20;
+    border-radius: 5px;
+}
+
+/* 布局容器 */
+.layout-lr {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /* 左右结构：左边固定，右边滑动 */
+}
+
+.layout-ud {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* 上下结构：上边固定，下边滑动 */
+}
+
+/* 偏旁盒子 (固定的部分) */
+.radical-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    background-color: #fff; /* 不透明背景，遮挡滑条多余部分 */
+    border: 2px dashed #ddd;
+    border-radius: 8px;
+    margin: 2px; /* 稍微留点缝隙 */
+}
+
+/* 滑动区域视窗 (开窗部分) */
+.slider-viewport {
+    position: relative;
+    overflow: hidden;
+    border: 2px solid #eee;
+    border-radius: 8px;
+    background-color: #fafafa;
+    margin: 2px;
+    /* 关键：添加遮罩层，模拟蒙版 */
+    z-index: 1;
+}
+
+/* 蒙版遮罩层 - 通过伪元素实现半透明遮挡 */
+.slider-viewport::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* 允许穿透点击 */
+    z-index: 2;
+}
+
+/* 左右结构：竖向遮罩 (上下半透明，中间透明) */
+.layout-lr .slider-viewport::after {
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.8) 0%,
+        rgba(255, 255, 255, 0.8) 33.33%,
+        rgba(255, 255, 255, 0) 33.33%,
+        rgba(255, 255, 255, 0) 66.66%,
+        rgba(255, 255, 255, 0.8) 66.66%,
+        rgba(255, 255, 255, 0.8) 100%
+    );
+    /* 增加内阴影增强洞口立体感 */
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+}
+
+/* 上下结构：横向遮罩 (左右半透明，中间透明) */
+.layout-ud .slider-viewport::after {
+    background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0.8) 0%,
+        rgba(255, 255, 255, 0.8) 33.33%,
+        rgba(255, 255, 255, 0) 33.33%,
+        rgba(255, 255, 255, 0) 66.66%,
+        rgba(255, 255, 255, 0.8) 66.66%,
+        rgba(255, 255, 255, 0.8) 100%
+    );
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+}
+
+/* 滑动条 */
+.slider {
+    position: absolute;
+    display: flex;
+    transition: transform 0.1s ease-out;
+    cursor: grab;
+    z-index: 1;
+}
+.slider:active {
+    cursor: grabbing;
+}
+
+/* 左右结构时，Slider是竖向排列的部件 */
+.layout-lr .slider {
+    flex-direction: column;
+    left: 0;
+    width: 100%;
+}
+
+/* 上下结构时，Slider是横向排列的部件 */
+.layout-ud .slider {
+    flex-direction: row;
+    top: 0;
+    height: 100%;
+}
+
+/* 单个字符单元 */
+.char-unit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+/* 拼音和字的组合容器 */
+.py-char-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 左右结构：拼音在字上方 -> column */
+.layout-lr .py-char-group {
+    flex-direction: column;
+}
+
+/* 上下结构：拼音在字左方 -> row */
+.layout-ud .py-char-group {
+    flex-direction: row;
+}
+
+/* 拼音样式 */
+.pinyin {
+    font-size: 1.5rem;
+    color: #666;
+    text-align: center;
+    font-family: Arial, sans-serif; /* 拼音用无衬线字体更清晰 */
+}
+
+/* 针对 UD 结构（拼音在左）的特殊处理 */
+.layout-ud .pinyin {
+    width: 60px;
+    text-align: right;
+    padding-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+/* 针对 LR 结构（拼音在上）的特殊处理 */
+.layout-lr .pinyin {
+    height: 30px;
+    line-height: 30px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    width: 100%;
+}
+
+/* 汉字样式 */
+.character {
+    font-size: 4rem;
+    font-weight: bold;
+    line-height: 1;
+    color: #333;
+}
+
+/* 结果展示区 */
+.result-area {
+    margin-top: 20px;
+    padding: 20px;
+    border: 2px dashed var(--border-color);
+    border-radius: 10px;
+    background-color: #fff;
+    min-width: 300px;
+    text-align: center;
+}
+
+.result-title {
+    font-size: 1.2rem;
+    color: #888;
+    margin-bottom: 10px;
+}
+
+.result-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.big-char {
+    font-size: 5rem;
+    color: var(--border-color);
+    font-family: var(--font-family);
+}
+
+.big-pinyin {
+    font-size: 2rem;
+    color: #e74c3c;
+    font-family: Arial, sans-serif;
+}
+
+#welcome-msg {
+    text-align: center;
+    color: #666;
+    font-size: 1.2rem;
+    margin-top: 50px;
+}
