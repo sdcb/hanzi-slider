@@ -309,3 +309,144 @@ button:hover {
     font-size: 1.2rem;
     margin-top: 50px;
 }
+
+/* GitHub 角标 */
+.github-corner {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 9999;
+    fill: var(--border-color);
+    color: var(--bg-color);
+    border: 0;
+}
+
+.github-corner:hover .octo-arm {
+    animation: octocat-wave 560ms ease-in-out;
+}
+
+@keyframes octocat-wave {
+    0%, 100% { transform: rotate(0); }
+    20%, 60% { transform: rotate(-25deg); }
+    40%, 80% { transform: rotate(10deg); }
+}
+
+@media (max-width: 500px) {
+    .github-corner:hover .octo-arm {
+        animation: none;
+    }
+    .github-corner .octo-arm {
+        animation: octocat-wave 560ms ease-in-out;
+    }
+}
+
+/* 移动端响应式优化 */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    h1 {
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+    }
+    
+    .controls {
+        gap: 8px;
+        margin-bottom: 20px;
+    }
+    
+    select, button {
+        font-size: 1rem;
+        padding: 8px 15px;
+    }
+    
+    /* 缩小字体大小 */
+    .character {
+        font-size: 2.5rem;
+    }
+    
+    .pinyin {
+        font-size: 1rem;
+    }
+    
+    /* 上下结构的拼音宽度调整 */
+    .layout-ud .pinyin {
+        width: 40px;
+        padding-right: 5px;
+        font-size: 0.9rem;
+    }
+    
+    /* 左右结构的拼音高度调整 */
+    .layout-lr .pinyin {
+        height: 20px;
+        line-height: 20px;
+        font-size: 0.9rem;
+    }
+    
+    /* 视窗框架缩小边距和边框 */
+    .viewport-frame {
+        border: 4px solid var(--border-color);
+        padding: 10px;
+        box-shadow: 5px 5px 0px rgba(0,0,0,0.1);
+    }
+    
+    /* 结果展示区 */
+    .result-area {
+        min-width: auto;
+        width: calc(100vw - 40px);
+        max-width: 400px;
+        padding: 15px;
+    }
+    
+    .result-content {
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+    
+    .big-char {
+        font-size: 3rem;
+    }
+    
+    .big-pinyin {
+        font-size: 1.5rem;
+    }
+    
+    /* GitHub 角标缩小 */
+    .github-corner svg {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+/* 超小屏幕进一步优化 */
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+    
+    .character {
+        font-size: 2rem;
+    }
+    
+    .pinyin {
+        font-size: 0.8rem;
+    }
+    
+    .layout-ud .pinyin {
+        width: 35px;
+        font-size: 0.75rem;
+    }
+    
+    .layout-lr .pinyin {
+        font-size: 0.75rem;
+    }
+    
+    .big-char {
+        font-size: 2.5rem;
+    }
+    
+    .big-pinyin {
+        font-size: 1.2rem;
+    }
+}
