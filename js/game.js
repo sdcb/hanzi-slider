@@ -291,19 +291,19 @@ function updateResult(index) {
 
     // 显示组合结果
     resultContent.innerHTML = `
-        <div style="display:flex; flex-direction:column; align-items:center;">
+        <div class="result-combined">
             <div class="big-pinyin">${item.pyChar}</div>
             <div class="big-char">${item.char}</div>
         </div>
-        <div style="font-size: 1.5rem; color: #aaa;">=</div>
-        <div style="display:flex; flex-direction:column; align-items:center; font-size: 0.8rem; color: #666;">
-            <div>${currentSet.pyRadical}</div>
-            <div>${currentSet.radical}</div>
+        <div class="result-equals">=</div>
+        <div class="result-part">
+            <div class="part-pinyin">${currentSet.pyRadical}</div>
+            <div class="part-char">${currentSet.radical}</div>
         </div>
-        <div style="font-size: 1.5rem; color: #aaa;">+</div>
-        <div style="display:flex; flex-direction:column; align-items:center; font-size: 0.8rem; color: #666;">
-            <div>${item.pyPart}</div>
-            <div>${item.part}</div>
+        <div class="result-plus">+</div>
+        <div class="result-part">
+            <div class="part-pinyin">${item.pyPart}</div>
+            <div class="part-char">${item.part}</div>
         </div>
     `;
 }

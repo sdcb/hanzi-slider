@@ -7,6 +7,15 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <!-- 祥云装饰背景 -->
+    <div class="cloud cloud-1"></div>
+    <div class="cloud cloud-2"></div>
+    <div class="cloud cloud-3"></div>
+    
+    <!-- 印章装饰 -->
+    <div class="seal-decoration">
+        <div class="seal-content">汉字<br>抽乐</div>
+    </div>
 
     <!-- GitHub 角标 -->
     <a href="https://github.com/sdcb/hanzi-slider" class="github-corner" target="_blank" rel="noopener noreferrer" aria-label="View source on GitHub">
@@ -18,7 +27,12 @@
     </a>
 
     <div id="app">
-        <h1>汉字抽抽乐</h1>
+        <!-- 标题装饰框 -->
+        <div class="title-container">
+            <div class="title-decoration left"></div>
+            <h1>汉字抽抽乐</h1>
+            <div class="title-decoration right"></div>
+        </div>
         
         <div class="controls">
             <select id="structure-select">
@@ -38,6 +52,11 @@
             
             <!-- 抽抽乐视窗 -->
             <div id="viewport-frame" class="viewport-frame">
+                <!-- 传统纹样角装饰 -->
+                <div class="corner-decoration corner-tl"></div>
+                <div class="corner-decoration corner-tr"></div>
+                <div class="corner-decoration corner-bl"></div>
+                <div class="corner-decoration corner-br"></div>
                 <div class="mask-overlay"></div>
                 <!-- 内容将通过JS注入 -->
             </div>
